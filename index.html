@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="books">
@@ -11,9 +12,34 @@
             Input
         </div>
         <div class="book">
-            <label for="userInput">Enter your text:</label>
-            <input type="text" id="userInput" placeholder="Type something here">
-            <button onclick="submitText()">Submit</button>
+            <div class="input">
+                <label for="title">Title:</label>
+                <input type="text" id="title">
+            </div>
+            <div class="input">
+                <label for="author">Author:</label>
+                <input type="text" id="author">
+            </div>
+            <div class="input">
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" step="1">
+            </div>
+            <div class="input">
+                <label for="title">Title:</label>
+                <input type="text" id="title">
+            </div>
+            <div class="read">
+                <p>Read:</p>
+                <div>
+                    <input type="radio" id="child" name="ticket_type" value="child">
+                    <label for="child">Yes</label>
+                </div>
+                <div>
+                    <input type="radio" id="adult" name="ticket_type" value="adult" checked>
+                    <label for="adult">No</label>
+                </div>
+            </div>
+                <button onclick="submitText()">Submit</button>
             <p id="output"></p>
         </div>
         <div class="add">
@@ -26,7 +52,18 @@
             Library
         </div>
         <div class="table">
-
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Pages</th>
+                        <th>Read</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
         </div>
         <div class="modify">
 
