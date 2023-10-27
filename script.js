@@ -19,3 +19,11 @@ function Book(title, author, pages, read){
 function addBookToLibrary() {
     
 }
+
+function submitText() {
+	// Get the user's input from the textbox
+	var userInput = document.getElementById("userInput").value;
+
+	// Display the user's input on the page
+	document.getElementById("output").textContent = "You entered: " + userInput;
+}
