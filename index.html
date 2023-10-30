@@ -23,10 +23,10 @@
                 </thead>
                 <tbody id="tableBody">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="titleCell"> </td>
+                        <td class="authorCell"> </td>
+                        <td class="pagesCell"> </td>
+                        <td class="readCell"> </td>
                     </tr>
                 </tbody>
             </table>
@@ -41,28 +41,30 @@
             Input
         </div>
         <div class="info">
-            <div class="input">
-                <label for="title">Title:</label>
-                <input type="text" id="title">
-            </div>
-            <div class="input">
-                <label for="author">Author:</label>
-                <input type="text" id="author">
-            </div>
-            <div class="input">
-                <label for="pages">Pages:</label>
-                <input type="number" id="pages" step="1">
-            </div>
-            <div class="read">
-                <p>Read:</p>
-                <div class="choices">
-                    <div class="choice">
-                        <input type="radio" id="yes" name="ticket_type" value="yes">
-                        <label for="yes">Yes</label>
-                    </div>
-                    <div class="choice">
-                        <input type="radio" id="no" name="ticket_type" value="no" checked>
-                        <label for="no">No</label>
+            <div class = "row">
+                <div class="input">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title">
+                </div>
+                <div class="input">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author">
+                </div>
+                <div class="input">
+                    <label for="pages">Pages:</label>
+                    <input type="number" id="pages" step="1">
+                </div>
+                <div class="read">
+                    <p>Read:</p>
+                    <div class="choices">
+                        <div class="choice">
+                            <input type="radio" id="yes" name="ticket_type" value="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input type="radio" id="no" name="ticket_type" value="no" checked>
+                            <label for="no">No</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,7 +73,7 @@
             <button onclick="addMore()">Add More Books</button>
         </div>
         <div class="add_book">
-            <button onclick="submitText()">Submit</button>
+            <button onclick=createBooks()>Submit</button>
         </div>
     </div>
     <script src="script.js"></script>

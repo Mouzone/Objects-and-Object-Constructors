@@ -57,6 +57,11 @@ body{
 
 .info{
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.row{
+    display: flex;
     gap: 40px;
     align-items: center;
 }
