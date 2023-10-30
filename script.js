@@ -1,83 +1,84 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read){
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-	
-	this.info = function(){
-		if (this.read == "Yes"){
-			return `${title} by ${author}, ${pages} pages`
-		}
-		else {
-			return `${title} by ${author}, ${pages} pages, not read yet`
-		}
-	}
+  info() {
+    return this.read === 'Yes'
+      ? `${this.title} by ${this.author}, ${this.pages} pages`
+      : `${this.title} by ${this.author}, ${this.pages} pages, not read yet`;
+  }
 }
 
 function addMore() {
-	// Get the "row" element to be copied
-	var rowToCopy = document.querySelector('.row');
+  const rowToCopy = document.querySelector('.row');
+  const newRow = rowToCopy.cloneNode(true);
 
-	// Clone the row element and its content
-	var newRow = rowToCopy.cloneNode(true);
+  // Clear input values in the new row
+  newRow.querySelectorAll('input[type="text"], input[type="number"]').forEach((input) => {
+    input.value = '';
+  });
 
-	// Append the cloned row to the "info" div
-	var infoDiv = document.querySelector('.info');
-	infoDiv.appendChild(newRow);
+  // Reset the radio button to 'No' in the new row
+  newRow.querySelectorAll('input[name^="ticket_type"]').forEach((radio) => {
+    radio.checked = false;
+  });
+
+  // Generate a unique name for the radio buttons
+  const timestamp = Date.now();
+  newRow.querySelectorAll('input[type="radio"]').forEach((radio) => {
+    const oldName = radio.getAttribute('name');
+    const newName = oldName + '_' + timestamp;
+    radio.setAttribute('name', newName);
+  });
+
+  const infoDiv = document.querySelector('.info');
+  infoDiv.appendChild(newRow);
 }
 
-function addToLibrary(){
-	var counter = 0
-	myLibrary.forEach(function(book){
-		if (counter == 0){
-			var tablebody = document.querySelector('#tableBody')
-			var first_row = tablebody.querySelector('tr')
-			var titleCell = first_row.querySelector(".titleCell");
-			var authorCell = first_row.querySelector(".authorCell");
-			var pagesCell = first_row.querySelector(".pagesCell");
-			var readCell = first_row.querySelector(".readCell");
-
-			// Populate the cells with object properties
-			titleCell.textContent = book.title;
-			authorCell.textContent = book.author;
-			pagesCell.textContent = book.pages;
-			readCell.textContent = book.read;
-			counter++
-		}
-		else{
-			var tableBody = document.querySelector('#tableBody');
-    
-			// Create a new row and cells
-			var newRow = tableBody.insertRow(counter);
-			var titleCell = newRow.insertCell(0);
-			var authorCell = newRow.insertCell(1);
-			var pagesCell = newRow.insertCell(2);
-			var readCell = newRow.insertCell(3);
-		
-			// Populate the cells with object properties
-			titleCell.textContent = book.title;
-			authorCell.textContent = book.author;
-			pagesCell.textContent = book.pages;
-			readCell.textContent = book.read;
-		
-			counter++; // Increment the counter for the next row
-		}
-	})
+function addToLibrary() {
+  const tableBody = document.querySelector('#tableBody');
+  myLibrary.forEach((book) => {
+    const newRow = tableBody.insertRow();
+    newRow.insertCell(0).textContent = book.title;
+    newRow.insertCell(1).textContent = book.author;
+    newRow.insertCell(2).textContent = book.pages;
+    newRow.insertCell(3).textContent = book.read;
+  });
+  myLibrary.length = 0;
 }
 
-function createBooks(){
-	var infoDiv = document.querySelector('.info');
-    var rows = infoDiv.querySelectorAll('.row');
-	rows.forEach(function(row) {
-		var title = row.querySelector('#title').value;
-		var author = row.querySelector('#author').value;
-		var pages = row.querySelector('#pages').value;
-		var read = row.querySelector('input[name="ticket_type"]:checked').value;
-		myLibrary.push(new Book(title, author, pages, read))
-		console.log(myLibrary[0].info())
-	})
-	addToLibrary()
+function clearAndResetForm() {
+  const infoDiv = document.querySelector('.info');
+  const rows = infoDiv.querySelectorAll('.row');
+  rows.forEach((row, index) => {
+    if (index !== 0) {
+      infoDiv.removeChild(row);
+    } else {
+      row.querySelectorAll('input[type="text"], input[type="number"]').forEach((input) => {
+        input.value = '';
+      });
+      row.querySelector('input[name="ticket_type"][value="no"]').checked = true;
+    }
+  });
+}
+
+function createBooks() {
+  const infoDiv = document.querySelector('.info');
+  const rows = infoDiv.querySelectorAll('.row');
+  rows.forEach((row) => {
+    const title = row.querySelector('#title').value;
+    const author = row.querySelector('#author').value;
+    const pages = row.querySelector('#pages').value;
+    const read = row.querySelector('input[name^="ticket_type"]:checked').value;
+    myLibrary.push(new Book(title, author, pages, read));
+  });
+
+  addToLibrary();
+  clearAndResetForm();
 }
